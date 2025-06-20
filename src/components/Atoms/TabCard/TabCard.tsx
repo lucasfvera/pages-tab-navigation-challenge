@@ -1,3 +1,5 @@
+'use client';
+
 import {
 	styles,
 	tabCardBasic,
@@ -20,7 +22,10 @@ const TabCard = ({ content, icon, state }: TabCardProps) => {
 	const isActive = state === 'active';
 
 	return (
-		<button className={`${tabCardBasic} ${styles[state]}`}>
+		<button
+			className={`${tabCardBasic} ${styles[state]}`}
+			onClick={() => !isActive && window.alert('page clicked')}
+		>
 			<TabCardIcons
 				colorType={isActive ? 'active' : 'default'}
 				type={icon}
@@ -28,9 +33,13 @@ const TabCard = ({ content, icon, state }: TabCardProps) => {
 			<Body color={isActive ? 'default' : 'disabled'}>{content}</Body>
 			{isActive && (
 				<EllipsisVertical
+					onClick={(e) => {
+						e.stopPropagation();
+						window.alert('test');
+					}}
 					size={16}
 					color={'var(--color-icon-light-gray)'}
-					className={'ml-0.5'}
+					className={'ml-0.5 cursor-pointer'}
 				/>
 			)}
 		</button>
