@@ -1,17 +1,25 @@
-import { Info, FileText, CircleCheck } from 'lucide-react';
+import { Info, FileText, CircleCheck, Plus } from 'lucide-react';
 
 export interface TabCardIconsProps {
-	colorType: 'active' | 'default';
-	type: 'info' | 'page' | 'ending';
+	colorType: 'active' | 'default' | 'black';
+	type: 'info' | 'page' | 'ending' | 'add';
 }
 
 export const TabCardIcons = ({ colorType, type }: TabCardIconsProps) => {
 	const color =
 		colorType === 'active'
 			? 'var(--color-icon-orange)'
-			: 'var(--color-icon-gray)';
+			: colorType === 'default'
+			? 'var(--color-icon-gray)'
+			: 'var(--color-text-black)';
 
 	const Icon =
-		type === 'info' ? Info : type === 'page' ? FileText : CircleCheck;
+		type === 'info'
+			? Info
+			: type === 'page'
+			? FileText
+			: type === 'ending'
+			? CircleCheck
+			: Plus;
 	return <Icon color={color} size={20} />;
 };

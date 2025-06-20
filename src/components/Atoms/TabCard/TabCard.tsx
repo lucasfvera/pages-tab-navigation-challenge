@@ -15,23 +15,28 @@ import { EllipsisVertical } from 'lucide-react';
 interface TabCardProps {
 	content: string;
 	icon: TabCardIconsProps['type'];
-	state: TabCardStates; // make it a tuple
+	iconColor?: TabCardIconsProps['colorType'];
+	state: TabCardStates;
 }
 
-const TabCard = ({ content, icon, state }: TabCardProps) => {
+const TabCard = ({
+	content,
+	icon,
+	state,
+	iconColor = 'active',
+}: TabCardProps) => {
 	const isActive = state === 'active';
+	const isAddPageTab = icon === 'add';
+	const showContextualMenu = isActive && !isAddPageTab;
 
 	return (
 		<button
 			className={`${tabCardBasic} ${styles[state]}`}
 			onClick={() => !isActive && window.alert('page clicked')}
 		>
-			<TabCardIcons
-				colorType={isActive ? 'active' : 'default'}
-				type={icon}
-			/>
+			<TabCardIcons colorType={iconColor} type={icon} />
 			<Body color={isActive ? 'default' : 'disabled'}>{content}</Body>
-			{isActive && (
+			{showContextualMenu && (
 				<EllipsisVertical
 					onClick={(e) => {
 						e.stopPropagation();
