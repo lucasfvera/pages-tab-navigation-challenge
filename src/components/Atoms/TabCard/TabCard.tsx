@@ -20,12 +20,12 @@ const TabCard = ({ content, icon, state }: TabCardProps) => {
 	const isActive = state === 'active';
 
 	return (
-		<div className={`${tabCardBasic} ${styles[state]}`}>
+		<button className={`${tabCardBasic} ${styles[state]}`}>
 			<TabCardIcons
 				colorType={isActive ? 'active' : 'default'}
 				type={icon}
 			/>
-			<Body>{content}</Body>
+			<Body color={isActive ? 'default' : 'disabled'}>{content}</Body>
 			{isActive && (
 				<EllipsisVertical
 					size={16}
@@ -33,7 +33,7 @@ const TabCard = ({ content, icon, state }: TabCardProps) => {
 					className={'ml-0.5'}
 				/>
 			)}
-		</div>
+		</button>
 	);
 };
 

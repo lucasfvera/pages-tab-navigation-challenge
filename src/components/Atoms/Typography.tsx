@@ -1,5 +1,15 @@
-export const Body = ({ children }: { children: string }) => (
-	<p className="text-sm/[24px] font-medium text-(--color-text-black)">
-		{children}
-	</p>
-);
+export const Body = ({
+	children,
+	color,
+}: {
+	children: string;
+	color: 'default' | 'disabled';
+}) => {
+	const colorStr =
+		color === 'default'
+			? 'text-(--color-text-black)'
+			: 'text-(--color-text-gray)';
+	return (
+		<p className={`text-sm/[24px] font-medium ${colorStr}`}>{children}</p>
+	);
+};

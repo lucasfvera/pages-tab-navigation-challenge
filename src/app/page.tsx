@@ -4,7 +4,8 @@ export default function Home() {
 	return (
 		<div>
 			Welcome to Fillout{' '}
-			<TabCard content="Info" icon={'info'} state="active" />
+			<TabCard content="Active" icon={'info'} state="active" />
+			<TabCard content="Default" icon={'page'} state="default" />
 		</div>
 	);
 }
