@@ -1,5 +1,13 @@
 @import 'tailwindcss';
 
+/* Naming should follow property-entity-attribute */
+
 @theme inline {
-	--color-gray-border: #e1e1e1;
+	--color-border-gray: #e1e1e1;
+	--color-icon-orange: #f59d0e;
+	--color-icon-gray: #8c93a1;
+}
+
+* {
+	box-sizing: border-box;
 }
