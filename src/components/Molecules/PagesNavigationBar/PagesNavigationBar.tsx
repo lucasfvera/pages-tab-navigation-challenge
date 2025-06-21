@@ -51,7 +51,6 @@ const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 								e.preventDefault();
 								const rectangle =
 									e.currentTarget.getBoundingClientRect();
-								console.log(rectangle);
 								setContextMenu({
 									x: rectangle.x,
 									y: rectangle.y,

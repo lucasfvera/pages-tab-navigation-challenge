@@ -14,9 +14,12 @@ const ContextMenuButton = ({
 	onClick,
 	destroy,
 }: ContextMenuButtonProps) => {
+	const hoverColor = destroy
+		? 'hover:bg-(--color-destroy)/10'
+		: 'hover:bg-gray-100';
 	return (
 		<button
-			className="flex gap-1.5 hover:bg-gray-200 w-full text-left p-1 rounded"
+			className={`flex gap-1.5 ${hoverColor} w-full text-left py-1.5 px-2 rounded-sm`}
 			onClick={onClick}
 		>
 			{icon}

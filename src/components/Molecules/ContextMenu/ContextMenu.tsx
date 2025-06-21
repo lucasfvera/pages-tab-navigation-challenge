@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Flag, PenLine, Clipboard, Copy, Trash2 } from 'lucide-react';
 import { Body } from '@/components/Atoms/Typography';
 import { ContextMenuButton } from '@/components/Molecules/ContextMenu/ContextMenuButton';
@@ -15,6 +15,8 @@ interface ContextMenuProps {
 
 const ContextMenu = ({ position, onClose }: ContextMenuProps) => {
 	const contextMenuRef = useRef<HTMLDivElement | null>(null);
+	const [calculatedPosition, setCalculatedPosition] =
+		useState<ContextMenuPosition | null>(null);
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
@@ -30,14 +32,30 @@ const ContextMenu = ({ position, onClose }: ContextMenuProps) => {
 		return () => document.removeEventListener('click', handleClickOutside);
 	}, [onClose]);
 
+	// Calculate context menu height and position after render
+	useEffect(() => {
+		if (position && contextMenuRef.current) {
+			const height = contextMenuRef.current.clientHeight;
+
+			setCalculatedPosition({
+				x: position.x,
+				y: position.y - height,
+			});
+		}
+	}, [position]);
+
 	if (!position) return null;
+
+	// Use calculated position if available, otherwise use original position (will be adjusted after render)
+	const displayPosition = calculatedPosition || position;
 
 	return (
 		<div
 			ref={contextMenuRef}
 			style={{
-				top: position.y - 258,
-				left: position.x,
+				top: displayPosition.y,
+				left: displayPosition.x,
+				visibility: calculatedPosition ? 'visible' : 'hidden',
 			}}
 			className="bg-white border border-(--color-border-gray) shadow-md/4 rounded-2xl z-50 fixed min-w-[240px]"
 		>
@@ -45,7 +63,7 @@ const ContextMenu = ({ position, onClose }: ContextMenuProps) => {
 				<Body color="default">Settings</Body>
 			</div>
 			<div className="border-t border-(--color-border-gray)" />
-			<ul className="flex flex-col gap-3.5 p-3 justify-start">
+			<ul className="flex flex-col justify-start p-1">
 				<ContextMenuButton
 					icon={
 						<Flag
@@ -84,7 +102,7 @@ const ContextMenu = ({ position, onClose }: ContextMenuProps) => {
 				>
 					Duplicate
 				</ContextMenuButton>
-				<div className="border-t border-(--color-border-gray)" />
+				<div className="border-t border-(--color-border-gray) my-1" />
 				<ContextMenuButton
 					icon={<Trash2 color="var(--color-destroy)" size={16} />}
 					destroy
