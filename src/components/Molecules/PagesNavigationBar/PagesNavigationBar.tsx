@@ -2,38 +2,10 @@
 
 import { IconButton } from '@/components/Atoms/IconButton/IconButton';
 import { TabCard } from '@/components/Atoms/TabCard/TabCard';
-import { TabCardIconsProps } from '@/components/Atoms/TabCard/TabCardIcons';
+import { PagesNavigationBarProps } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
 import { useState } from 'react';
 
-interface Page {
-	id: string; // This should be an UUID from the backend
-	position: number;
-	title: string;
-	type: TabCardIconsProps['type'];
-}
-
-const MOCKED_PAGES: Page[] = [
-	{
-		id: 'uuid-1',
-		position: 1,
-		title: 'Active',
-		type: 'info',
-	},
-	{
-		id: 'uuid-2',
-		position: 2,
-		title: 'Default',
-		type: 'page',
-	},
-	{
-		id: 'uuid-3',
-		position: 3,
-		title: 'Info',
-		type: 'ending',
-	},
-];
-
-const PagesNavigationBar = () => {
+const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 	const [isHovered, setIsHovered] = useState<string | null>(null);
 	const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
@@ -45,7 +17,7 @@ const PagesNavigationBar = () => {
 				setTimer(hoverTimer);
 			}}
 		>
-			{MOCKED_PAGES.map(({ title, id, type, position }) => (
+			{pages.map(({ title, id, type, position }) => (
 				<div
 					key={id}
 					onMouseEnter={() => {
