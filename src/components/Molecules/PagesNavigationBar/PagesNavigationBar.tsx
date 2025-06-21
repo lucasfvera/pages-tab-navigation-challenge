@@ -39,7 +39,7 @@ const PagesNavigationBar = () => {
 
 	return (
 		<div
-			className="flex w-fit gap-5 relative items-center py-6"
+			className="flex w-fit gap-5 relative items-center"
 			onMouseLeave={() => {
 				const hoverTimer = setTimeout(() => setIsHovered(null), 400);
 				setTimer(hoverTimer);
@@ -77,10 +77,8 @@ const PagesNavigationBar = () => {
 	);
 };
 
-const DottedLine = () => {
-	return (
-		<div className="border-t-2 border-dashed border-[#C0C0C0] absolute w-full top-1/2 transform -translate-y-1/2 z-0" />
-	);
-};
+const DottedLine = () => (
+	<div className="border-t-2 border-dashed border-[#C0C0C0] absolute w-full top-1/2 transform -translate-y-1/2 z-0" />
+);
 
 export { PagesNavigationBar };
