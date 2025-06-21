@@ -31,8 +31,12 @@ const TabCard = ({
 
 	return (
 		<button
-			className={`${tabCardBasic} ${styles[state]}`}
-			onClick={() => !isActive && window.alert('page clicked')}
+			className={`${tabCardBasic} ${styles[state]} ${
+				isAddPageTab ? 'cursor-pointer' : ''
+			}`}
+			onClick={() =>
+				(!isActive || isAddPageTab) && window.alert('page clicked')
+			}
 		>
 			<TabCardIcons colorType={iconColor} type={icon} />
 			<Body color={isActive ? 'default' : 'disabled'}>{content}</Body>
