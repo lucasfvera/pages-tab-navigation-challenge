@@ -15,3 +15,20 @@ export const Body = ({
 		</p>
 	);
 };
+
+export const ContextMenuText = ({
+	children,
+	destroy,
+}: {
+	children: string;
+	destroy?: boolean;
+}) => {
+	const colorStr = destroy
+		? 'text-(--color-destroy)'
+		: 'text-(--color-text-black)';
+	return (
+		<p className={`text-sm/[16px] font-medium ${colorStr} text-nowrap`}>
+			{children}
+		</p>
+	);
+};
