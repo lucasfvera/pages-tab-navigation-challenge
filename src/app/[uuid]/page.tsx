@@ -10,7 +10,7 @@ export default async function FormPage({
 
 	return (
 		<div className="flex w-full bg-amber-300 h-full flex-1 rounded-lg items-center justify-center">
-			{page?.title}
+			{page ? page.title : "Oops! We couldn't find the page"}
 		</div>
 	);
 }

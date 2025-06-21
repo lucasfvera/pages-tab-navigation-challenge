@@ -10,6 +10,8 @@ export const Body = ({
 			? 'text-(--color-text-black)'
 			: 'text-(--color-text-gray)';
 	return (
-		<p className={`text-sm/[24px] font-medium ${colorStr}`}>{children}</p>
+		<p className={`text-sm/[24px] font-medium ${colorStr} text-nowrap`}>
+			{children}
+		</p>
 	);
 };

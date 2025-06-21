@@ -17,6 +17,7 @@ interface TabCardProps {
 	icon: TabCardIconsProps['type'];
 	iconColor?: TabCardIconsProps['colorType'];
 	state: TabCardStates;
+	action?: () => void;
 }
 
 const TabCard = ({
@@ -24,6 +25,7 @@ const TabCard = ({
 	icon,
 	state,
 	iconColor = 'active',
+	action,
 }: TabCardProps) => {
 	const isActive = state === 'active';
 	const isAddPageTab = icon === 'add';
@@ -32,11 +34,9 @@ const TabCard = ({
 	return (
 		<button
 			className={`${tabCardBasic} ${styles[state]} ${
-				isAddPageTab ? 'cursor-pointer' : ''
+				isAddPageTab && action ? 'cursor-pointer' : ''
 			}`}
-			onClick={() =>
-				(!isActive || isAddPageTab) && window.alert('page clicked')
-			}
+			onClick={() => action && action()}
 		>
 			<TabCardIcons colorType={iconColor} type={icon} />
 			<Body color={isActive ? 'default' : 'disabled'}>{content}</Body>
