@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { IconButton } from '@/components/Atoms/IconButton/IconButton';
 import { TabCard } from '@/components/Atoms/TabCard/TabCard';
 import { PagesNavigationBarProps } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
 import { usePathname } from 'next/navigation';
-import { Body, ContextMenuText } from '@/components/Atoms/Typography';
-import { Clipboard, Copy, Flag, PenLine, Trash2 } from 'lucide-react';
+import { ContextMenu } from '@/components/Molecules/ContextMenu/ContextMenu';
 
 interface ContextMenuPosition {
 	x: number;
@@ -21,21 +20,6 @@ const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 	const [contextMenu, setContextMenu] = useState<ContextMenuPosition | null>(
 		null
 	);
-	const contextMenuRef = useRef<HTMLDivElement | null>(null);
-
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (
-				contextMenuRef.current &&
-				!contextMenuRef.current.contains(event.target as Node)
-			) {
-				setContextMenu(null);
-			}
-		};
-
-		document.addEventListener('click', handleClickOutside);
-		return () => document.removeEventListener('click', handleClickOutside);
-	}, []);
 
 	return (
 		<div className="relative overflow-x-auto w-full no-scrollbar">
@@ -96,57 +80,10 @@ const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 				/>
 				<DottedLine />
 			</div>
-			{contextMenu && (
-				<div
-					ref={contextMenuRef}
-					style={{
-						top: contextMenu.y - 218,
-						left: contextMenu.x,
-					}}
-					className="bg-white border border-(--color-border-gray) shadow-md/4 rounded-2xl z-50 fixed min-w-[240px]"
-				>
-					<div className="h-[40px] flex flex-col justify-center py-2 px-3 bg-(--color-bg-light-gray2) rounded-2xl">
-						<Body color="default">Settings</Body>
-					</div>
-					<div className="border-t border-(--color-border-gray)" />
-					<ul className="flex flex-col gap-3.5 p-3 justify-start">
-						<button className="flex gap-1.5 hover:bg-gray-200">
-							<Flag
-								color="var(--color-border-blue)"
-								fill="var(--color-border-blue)"
-								size={16}
-							/>
-							<ContextMenuText>Set as first page</ContextMenuText>
-						</button>
-						<button className="flex gap-1.5 hover:bg-gray-200">
-							<PenLine
-								color="var(--color-icon-light-gray)"
-								size={16}
-							/>
-							<ContextMenuText>Rename</ContextMenuText>
-						</button>
-						<button className="flex gap-1.5 hover:bg-gray-200">
-							<Clipboard
-								color="var(--color-icon-light-gray)"
-								size={16}
-							/>
-							<ContextMenuText>Copy</ContextMenuText>
-						</button>
-						<button className="flex gap-1.5 hover:bg-gray-200">
-							<Copy
-								color="var(--color-icon-light-gray)"
-								size={16}
-							/>
-							<ContextMenuText>Duplicate</ContextMenuText>
-						</button>
-						<div className="border-t border-(--color-border-gray)" />
-						<button className="flex gap-1.5 hover:bg-gray-200">
-							<Trash2 color="var(--color-destroy)" size={16} />
-							<ContextMenuText destroy>Duplicate</ContextMenuText>
-						</button>
-					</ul>
-				</div>
-			)}
+			<ContextMenu
+				position={contextMenu}
+				onClose={() => setContextMenu(null)}
+			/>
 		</div>
 	);
 };
