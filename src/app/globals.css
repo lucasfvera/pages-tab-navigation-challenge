@@ -18,3 +18,7 @@
 * {
 	box-sizing: border-box;
 }
+
+@utility no-scrollbar {
+	@apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}

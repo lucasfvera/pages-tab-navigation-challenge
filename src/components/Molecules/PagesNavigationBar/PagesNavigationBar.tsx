@@ -13,45 +13,52 @@ const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 	const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 
 	return (
-		<div
-			className="flex w-full gap-5 relative items-center overflow-x-auto"
-			onMouseLeave={() => {
-				const hoverTimer = setTimeout(() => setIsHovered(null), 400);
-				setTimer(hoverTimer);
-			}}
-		>
-			{pages.map(({ title, id, type, position }) => (
-				<div
-					key={id}
-					onMouseEnter={() => {
-						if (timer) {
-							clearTimeout(timer);
-						}
-						setIsHovered(id);
-					}}
-					className="flex z-10 items-center gap-5"
-				>
-					{isHovered === id && position !== 1 && <IconButton />}
-					<Link href={id}>
-						<TabCard
-							content={title}
-							icon={type}
-							iconColor={
-								pathname === `/${id}` ? 'active' : 'default'
+		<div className="relative overflow-x-auto w-full no-scrollbar">
+			<div
+				className="flex w-max gap-5 relative items-center"
+				onMouseLeave={() => {
+					const hoverTimer = setTimeout(
+						() => setIsHovered(null),
+						400
+					);
+					setTimer(hoverTimer);
+				}}
+			>
+				{pages.map(({ title, id, type, position }) => (
+					<div
+						key={id}
+						onMouseEnter={() => {
+							if (timer) {
+								clearTimeout(timer);
 							}
-							state={pathname === `/${id}` ? 'active' : 'default'}
-						/>
-					</Link>
-					{isHovered === id && <IconButton />}
-				</div>
-			))}
-			<TabCard
-				content={'Add page'}
-				icon={'add'}
-				state={'active'}
-				iconColor={'black'}
-			/>
-			<DottedLine />
+							setIsHovered(id);
+						}}
+						className="flex z-10 items-center gap-5"
+					>
+						{isHovered === id && position !== 1 && <IconButton />}
+						<Link href={id}>
+							<TabCard
+								content={title}
+								icon={type}
+								iconColor={
+									pathname === `/${id}` ? 'active' : 'default'
+								}
+								state={
+									pathname === `/${id}` ? 'active' : 'default'
+								}
+							/>
+						</Link>
+						{isHovered === id && <IconButton />}
+					</div>
+				))}
+				<TabCard
+					content={'Add page'}
+					icon={'add'}
+					state={'active'}
+					iconColor={'black'}
+				/>
+				<DottedLine />
+			</div>
 		</div>
 	);
 };
