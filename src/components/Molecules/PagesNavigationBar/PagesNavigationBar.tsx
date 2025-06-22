@@ -49,6 +49,21 @@ const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 		null
 	);
 
+	const contextMenuHandler = (
+		e: React.MouseEvent<HTMLElement | SVGSVGElement>
+	) => {
+		e.preventDefault();
+		// Find the TabCard element (button) that contains the clicked element
+		const tabCardElement = (e.currentTarget as Element).closest('button');
+		const rectangle =
+			tabCardElement?.getBoundingClientRect() ||
+			e.currentTarget.getBoundingClientRect();
+		setContextMenu({
+			x: rectangle.x,
+			y: rectangle.y,
+		});
+	};
+
 	return (
 		<div className="relative overflow-x-auto w-full no-scrollbar">
 			<div
@@ -75,18 +90,7 @@ const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 						{isHovered === id && (
 							<IconButton onClick={() => createPage(position)} />
 						)}
-						<Link
-							href={id}
-							onContextMenu={(e) => {
-								e.preventDefault();
-								const rectangle =
-									e.currentTarget.getBoundingClientRect();
-								setContextMenu({
-									x: rectangle.x,
-									y: rectangle.y,
-								});
-							}}
-						>
+						<Link href={id} onContextMenu={contextMenuHandler}>
 							<TabCard
 								content={title}
 								icon={type}
@@ -96,6 +100,10 @@ const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
 								state={
 									pathname === `/${id}` ? 'active' : 'default'
 								}
+								additionalAction={(e) => {
+									e.stopPropagation();
+									contextMenuHandler(e);
+								}}
 							/>
 						</Link>
 						{isHovered === id && (

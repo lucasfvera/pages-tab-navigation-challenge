@@ -18,6 +18,9 @@ interface TabCardProps {
 	iconColor?: TabCardIconsProps['colorType'];
 	state: TabCardStates;
 	action?: () => void;
+	additionalAction?: (
+		e: React.MouseEvent<HTMLElement | SVGSVGElement>
+	) => void;
 }
 
 const TabCard = ({
@@ -26,6 +29,7 @@ const TabCard = ({
 	state,
 	iconColor = 'active',
 	action,
+	additionalAction,
 }: TabCardProps) => {
 	const isActive = state === 'active';
 	const isAddPageTab = icon === 'add';
@@ -44,7 +48,7 @@ const TabCard = ({
 				<EllipsisVertical
 					onClick={(e) => {
 						e.stopPropagation();
-						window.alert('test');
+						if (additionalAction) additionalAction(e);
 					}}
 					size={16}
 					color={'var(--color-icon-light-gray)'}
