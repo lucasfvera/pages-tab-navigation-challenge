@@ -10,8 +10,8 @@ import { DragHandle } from '@/components/Atoms/TabCard/DragHandle';
 
 interface DraggableTabCardProps {
 	page: Page;
-	isHovered: string | null;
-	setIsHovered: (id: string | null) => void;
+	hoveredElementId: string | null;
+	setHoveredElementId: (id: string | null) => void;
 	createPage: (position: number) => void;
 	contextMenuHandler: (
 		e: React.MouseEvent<HTMLElement | SVGSVGElement>
@@ -22,8 +22,8 @@ interface DraggableTabCardProps {
 
 export const DraggableTabCard = ({
 	page,
-	isHovered,
-	setIsHovered,
+	hoveredElementId,
+	setHoveredElementId,
 	createPage,
 	contextMenuHandler,
 	pathname,
@@ -49,8 +49,9 @@ export const DraggableTabCard = ({
 		  }
 		: undefined;
 
-	const showPlusIcon = isHovered === page.id && !isDragging && !active;
-	const showDragHandle = isHovered === page.id || isDragging;
+	const isElementHovered = hoveredElementId === page.id;
+	const showPlusIcon = isElementHovered && !isDragging && !active;
+	const showDragHandle = isElementHovered || isDragging;
 
 	return (
 		<div
@@ -60,14 +61,22 @@ export const DraggableTabCard = ({
 				if (timer) {
 					clearTimeout(timer);
 				}
-				setIsHovered(page.id);
+				setHoveredElementId(page.id);
 			}}
-			className="flex z-10 items-center gap-5"
+			className={`flex z-10 items-center gap-5 ${
+				isElementHovered ? 'px-9' : 'px-0'
+			} transition-[padding] relative`}
 		>
-			{showPlusIcon && (
-				<IconButton onClick={() => createPage(page.position)} />
-			)}
 			<div className="relative">
+				{showPlusIcon && (
+					<div
+						className={`absolute top-1/2 ${
+							isElementHovered ? 'left-[-28px]' : 'left-1/10'
+						} -translate-1/2 -z-10 transition-[left]`}
+					>
+						<IconButton onClick={() => createPage(page.position)} />
+					</div>
+				)}
 				{showDragHandle && (
 					<div
 						className="absolute top-0 left-1/2 -translate-1/2 z-20"
@@ -92,10 +101,18 @@ export const DraggableTabCard = ({
 						router.push(page.id);
 					}}
 				/>
+				{showPlusIcon && (
+					<div
+						className={`absolute top-1/2 ${
+							isElementHovered ? 'right-[-42px]' : 'right-0'
+						} -translate-1/2 -z-10 transition-[right]`}
+					>
+						<IconButton
+							onClick={() => createPage(page.position + 1)}
+						/>
+					</div>
+				)}
 			</div>
-			{showPlusIcon && (
-				<IconButton onClick={() => createPage(page.position + 1)} />
-			)}
 		</div>
 	);
 };

@@ -22,7 +22,9 @@ const PagesNavigationBar = () => {
 		id: 'droppable',
 	});
 	const pathname = usePathname();
-	const [isHovered, setIsHovered] = useState<string | null>(null);
+	const [hoveredElementId, setHoveredElementId] = useState<string | null>(
+		null
+	);
 	const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
 	const [contextMenu, setContextMenu] = useState<ContextMenuPosition | null>(
 		null
@@ -51,7 +53,7 @@ const PagesNavigationBar = () => {
 					ref={setNodeRef}
 					onMouseLeave={() => {
 						const hoverTimer = setTimeout(
-							() => setIsHovered(null),
+							() => setHoveredElementId(null),
 							400
 						);
 						setTimer(hoverTimer);
@@ -65,8 +67,8 @@ const PagesNavigationBar = () => {
 							<DraggableTabCard
 								key={page.id}
 								page={page}
-								isHovered={isHovered}
-								setIsHovered={setIsHovered}
+								hoveredElementId={hoveredElementId}
+								setHoveredElementId={setHoveredElementId}
 								createPage={createPage}
 								contextMenuHandler={contextMenuHandler}
 								pathname={pathname}

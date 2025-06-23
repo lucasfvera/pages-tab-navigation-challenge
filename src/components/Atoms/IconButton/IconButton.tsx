@@ -11,7 +11,7 @@ const IconButton = (
 	return (
 		<button
 			{...props}
-			className="h-fit rounded-full bg-white border-(--color-border-gray) border-1 shadow-sm/4 cursor-pointer"
+			className={`h-fit rounded-full bg-white border-(--color-border-gray) border-1 shadow-sm/4 cursor-pointer`}
 		>
 			<Plus size={14} />
 		</button>
