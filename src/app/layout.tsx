@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { PagesNavigationBar } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar';
+import { PagesNavigationBar } from '@/components/Organisms/PagesNavigationBar/PagesNavigationBar';
 import { LocalPagesContextProvider } from '@/contexts/LocalPagesContext/LocalPagesContextProvider';
 
 const inter = Inter({

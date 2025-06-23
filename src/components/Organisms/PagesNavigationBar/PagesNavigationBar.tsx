@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { TabCard } from '@/components/Atoms/TabCard/TabCard';
-import { ContextMenuPosition } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
+import { ContextMenuPosition } from '@/components/Organisms/PagesNavigationBar/PagesNavigationBar.types';
 import { usePathname } from 'next/navigation';
 import { ContextMenu } from '@/components/Molecules/ContextMenu/ContextMenu';
 import { useDroppable } from '@dnd-kit/core';
@@ -10,10 +10,10 @@ import {
 	SortableContext,
 	horizontalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import { DottedLine } from '@/components/Molecules/PagesNavigationBar/DottedLine';
-import { DraggableTabCard } from '@/components/Molecules/PagesNavigationBar/DragAndDrop/TabCardDraggable';
+import { DottedLine } from '@/components/Organisms/PagesNavigationBar/DottedLine';
+import { DraggableTabCard } from '@/components/Organisms/PagesNavigationBar/DragAndDrop/TabCardDraggable';
 import { useLocalPagesContext } from '@/contexts/LocalPagesContext/hooks/useLocalPagesContext';
-import { NavigationDndContext } from '@/components/Molecules/PagesNavigationBar/DragAndDrop/NavigationDndContext';
+import { NavigationDndContext } from '@/components/Organisms/PagesNavigationBar/DragAndDrop/NavigationDndContext';
 
 const PagesNavigationBar = () => {
 	const { localPages, createPage } = useLocalPagesContext();

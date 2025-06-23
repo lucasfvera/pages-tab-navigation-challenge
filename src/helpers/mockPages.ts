@@ -1,4 +1,4 @@
-import { Page } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
+import { Page } from '@/components/Organisms/PagesNavigationBar/PagesNavigationBar.types';
 
 export const MOCKED_PAGES: Page[] = [
 	{

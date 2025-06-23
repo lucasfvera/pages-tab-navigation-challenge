@@ -2,7 +2,7 @@
 
 import { IconButton } from '@/components/Atoms/IconButton/IconButton';
 import { TabCard } from '@/components/Atoms/TabCard/TabCard';
-import { Page } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
+import { Page } from '@/components/Organisms/PagesNavigationBar/PagesNavigationBar.types';
 import { useDroppable } from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';

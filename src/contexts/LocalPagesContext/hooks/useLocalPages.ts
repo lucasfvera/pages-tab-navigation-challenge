@@ -1,8 +1,8 @@
 'use client';
 
-import { Page } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Page } from '@/components/Organisms/PagesNavigationBar/PagesNavigationBar.types';
+import { useRouter } from 'next/navigation';
 
 export const useLocalPages = (pages: Page[]) => {
 	const router = useRouter();
