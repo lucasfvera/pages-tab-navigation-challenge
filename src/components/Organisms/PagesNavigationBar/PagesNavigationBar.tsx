@@ -44,7 +44,7 @@ const PagesNavigationBar = () => {
 	};
 
 	return (
-		<div className="relative overflow-x-auto w-full no-scrollbar">
+		<div className="relative overflow-x-auto w-full no-scrollbar pt-3">
 			<NavigationDndContext>
 				<div
 					className="flex w-max gap-5 relative items-center"

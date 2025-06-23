@@ -7,6 +7,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { useRouter } from 'next/navigation';
+import { DragHandle } from '@/components/Atoms/TabCard/DragHandle';
 
 interface DraggableTabCardProps {
 	page: Page;
@@ -49,6 +50,7 @@ export const DraggableTabCard = ({
 	};
 
 	const showPlusIcon = isHovered === page.id && !isDragging && !active;
+	const showDragHandle = isHovered === page.id || isDragging;
 
 	return (
 		<div
@@ -61,25 +63,36 @@ export const DraggableTabCard = ({
 				setIsHovered(page.id);
 			}}
 			className="flex z-10 items-center gap-5"
-			{...listeners}
-			{...attributes}
 		>
 			{showPlusIcon && (
 				<IconButton onClick={() => createPage(page.position)} />
 			)}
-			<TabCard
-				content={page.title}
-				icon={page.type}
-				iconColor={pathname === `/${page.id}` ? 'active' : 'default'}
-				state={pathname === `/${page.id}` ? 'active' : 'default'}
-				contextMenuAction={(e) => {
-					e.stopPropagation();
-					contextMenuHandler(e);
-				}}
-				action={() => {
-					router.push(page.id);
-				}}
-			/>
+			<div className="relative">
+				{showDragHandle && (
+					<div
+						className="absolute top-0 left-1/2 -translate-1/2 z-20"
+						{...listeners}
+						{...attributes}
+					>
+						<DragHandle />
+					</div>
+				)}
+				<TabCard
+					content={page.title}
+					icon={page.type}
+					iconColor={
+						pathname === `/${page.id}` ? 'active' : 'default'
+					}
+					state={pathname === `/${page.id}` ? 'active' : 'default'}
+					contextMenuAction={(e) => {
+						e.stopPropagation();
+						contextMenuHandler(e);
+					}}
+					action={() => {
+						router.push(page.id);
+					}}
+				/>
+			</div>
 			{showPlusIcon && (
 				<IconButton onClick={() => createPage(page.position + 1)} />
 			)}
