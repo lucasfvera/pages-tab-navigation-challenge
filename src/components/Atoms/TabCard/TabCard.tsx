@@ -17,7 +17,7 @@ interface TabCardProps {
 	icon: TabCardIconsProps['type'];
 	iconColor?: TabCardIconsProps['colorType'];
 	state: TabCardStates;
-	action?: () => void;
+	action?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	additionalAction?: (
 		e: React.MouseEvent<HTMLElement | SVGSVGElement>
 	) => void;
@@ -40,7 +40,7 @@ const TabCard = ({
 			className={`${tabCardBasic} ${styles[state]} ${
 				isAddPageTab && action ? 'cursor-pointer' : ''
 			}`}
-			onClick={() => action && action()}
+			onClick={(e) => action && action(e)}
 		>
 			<TabCardIcons colorType={iconColor} type={icon} />
 			<Body color={isActive ? 'default' : 'disabled'}>{content}</Body>
