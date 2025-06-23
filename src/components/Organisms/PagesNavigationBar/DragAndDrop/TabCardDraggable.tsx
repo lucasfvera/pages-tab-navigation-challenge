@@ -64,7 +64,7 @@ export const DraggableTabCard = ({
 				setHoveredElementId(page.id);
 			}}
 			className={`flex z-10 items-center gap-5 ${
-				isElementHovered ? 'px-9' : 'px-0'
+				isElementHovered || isDragging ? 'px-9' : 'px-0'
 			} transition-[padding] relative`}
 		>
 			<div className="relative">
