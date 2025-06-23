@@ -26,7 +26,7 @@ export const NavigationDndContext = ({ children }: { children: ReactNode }) => {
 	const { setLocalPages } = useLocalPagesContext();
 	const mouseSensor = useSensor(MouseSensor, {
 		activationConstraint: {
-			delay: 200,
+			delay: 100,
 			tolerance: 10,
 		},
 	});

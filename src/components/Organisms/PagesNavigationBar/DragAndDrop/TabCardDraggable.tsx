@@ -5,7 +5,6 @@ import { TabCard } from '@/components/Atoms/TabCard/TabCard';
 import { Page } from '@/components/Organisms/PagesNavigationBar/PagesNavigationBar.types';
 import { useDroppable } from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import { useRouter } from 'next/navigation';
 import { DragHandle } from '@/components/Atoms/TabCard/DragHandle';
 
@@ -43,11 +42,12 @@ export const DraggableTabCard = ({
 	});
 	const router = useRouter();
 
-	const style = {
-		transform: CSS.Transform.toString(transform),
-		transition,
-		opacity: isDragging ? 0.5 : 1,
-	};
+	const style = transform
+		? {
+				transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+				transition,
+		  }
+		: undefined;
 
 	const showPlusIcon = isHovered === page.id && !isDragging && !active;
 	const showDragHandle = isHovered === page.id || isDragging;
