@@ -2,7 +2,6 @@
 
 import { Page } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
 import { useRouter } from 'next/navigation';
-
 import { useState } from 'react';
 
 export const useLocalPages = (pages: Page[]) => {
@@ -35,3 +34,5 @@ export const useLocalPages = (pages: Page[]) => {
 
 	return { localPages, setLocalPages, createPage };
 };
+
+export type useLocalPagesReturnType = ReturnType<typeof useLocalPages>;

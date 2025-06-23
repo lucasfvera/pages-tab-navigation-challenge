@@ -4,19 +4,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { IconButton } from '@/components/Atoms/IconButton/IconButton';
 import { TabCard } from '@/components/Atoms/TabCard/TabCard';
-import { PagesNavigationBarProps } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
+import { ContextMenuPosition } from '@/components/Molecules/PagesNavigationBar/PagesNavigationBar.types';
 import { usePathname } from 'next/navigation';
 import { ContextMenu } from '@/components/Molecules/ContextMenu/ContextMenu';
 import { DottedLine } from '@/components/Molecules/PagesNavigationBar/DottedLine';
-import { useLocalPages } from '@/components/Molecules/PagesNavigationBar/hooks/useLocalPages';
+import { useLocalPagesContext } from '@/contexts/LocalPagesContext/hooks/useLocalPagesContext';
 
-interface ContextMenuPosition {
-	x: number;
-	y: number;
-}
+const PagesNavigationBar = () => {
+	const { localPages, setLocalPages, createPage } = useLocalPagesContext();
 
-const PagesNavigationBar = ({ pages }: PagesNavigationBarProps) => {
-	const { localPages, setLocalPages, createPage } = useLocalPages(pages);
 	const pathname = usePathname();
 	const [isHovered, setIsHovered] = useState<string | null>(null);
 	const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);

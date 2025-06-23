@@ -7,6 +7,7 @@ export interface Page {
 	type: TabCardIconsProps['type'];
 }
 
-export interface PagesNavigationBarProps {
-	pages: Page[];
+export interface ContextMenuPosition {
+	x: number;
+	y: number;
 }
