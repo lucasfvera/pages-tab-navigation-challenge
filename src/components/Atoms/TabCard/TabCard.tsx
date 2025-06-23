@@ -18,7 +18,7 @@ interface TabCardProps {
 	iconColor?: TabCardIconsProps['colorType'];
 	state: TabCardStates;
 	action?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-	additionalAction?: (
+	contextMenuAction?: (
 		e: React.MouseEvent<HTMLElement | SVGSVGElement>
 	) => void;
 }
@@ -29,7 +29,7 @@ const TabCard = ({
 	state,
 	iconColor = 'active',
 	action,
-	additionalAction,
+	contextMenuAction,
 }: TabCardProps) => {
 	const isActive = state === 'active';
 	const isAddPageTab = icon === 'add';
@@ -41,6 +41,7 @@ const TabCard = ({
 				isAddPageTab && action ? 'cursor-pointer' : ''
 			}`}
 			onClick={(e) => action && action(e)}
+			onContextMenu={contextMenuAction}
 		>
 			<TabCardIcons colorType={iconColor} type={icon} />
 			<Body color={isActive ? 'default' : 'disabled'}>{content}</Body>
@@ -48,7 +49,7 @@ const TabCard = ({
 				<EllipsisVertical
 					onClick={(e) => {
 						e.stopPropagation();
-						if (additionalAction) additionalAction(e);
+						if (contextMenuAction) contextMenuAction(e);
 					}}
 					size={16}
 					color={'var(--color-icon-light-gray)'}
