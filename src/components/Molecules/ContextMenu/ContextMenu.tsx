@@ -14,7 +14,7 @@ interface ContextMenuProps {
 }
 
 const ContextMenu = ({ position, onClose }: ContextMenuProps) => {
-	const contextMenuRef = useRef<HTMLDivElement | null>(null);
+	const contextMenuRef = useRef<HTMLDialogElement | null>(null);
 	const [calculatedPosition, setCalculatedPosition] =
 		useState<ContextMenuPosition | null>(null);
 
@@ -44,22 +44,27 @@ const ContextMenu = ({ position, onClose }: ContextMenuProps) => {
 		}
 	}, [position]);
 
-	if (!position) return null;
+	// if (!position) return null;
 
 	// Use calculated position if available, otherwise use original position (will be adjusted after render)
 	const displayPosition = calculatedPosition || position;
 
 	return (
-		<div
+		<dialog
+			open={!!position}
 			ref={contextMenuRef}
 			style={{
-				top: displayPosition.y,
-				left: displayPosition.x,
+				top: displayPosition?.y,
+				left: displayPosition?.x,
 				visibility: calculatedPosition ? 'visible' : 'hidden',
 			}}
 			className="bg-white border border-(--color-border-gray) shadow-md/4 rounded-2xl z-50 fixed min-w-[240px]"
+			aria-labelledby="contextmenu-header"
 		>
-			<div className="h-[40px] flex flex-col justify-center py-2 px-3 bg-(--color-bg-light-gray2) rounded-2xl">
+			<div
+				id="contextmenu-header"
+				className="h-[40px] flex flex-col justify-center py-2 px-3 bg-(--color-bg-light-gray2) rounded-2xl"
+			>
 				<Body color="default">Settings</Body>
 			</div>
 			<div className="border-t border-(--color-border-gray)" />
@@ -110,7 +115,7 @@ const ContextMenu = ({ position, onClose }: ContextMenuProps) => {
 					Delete
 				</ContextMenuButton>
 			</ul>
-		</div>
+		</dialog>
 	);
 };
 
